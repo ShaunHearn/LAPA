@@ -19,7 +19,7 @@ V(ny,:) =0;
 
 dx = 0.02;
 dy = 0.02;
-numIt = 10;
+numIt = 1000;
 
 % Find solutions
 
@@ -31,14 +31,14 @@ figure('Name','Laplace Finite Solution')
 for k=1:numIt
     copyV= V;
     
-    V(i,j) = (dy^2*(copyV(j+1,i)-2*copyV(j,i)+copyV(j-1,i))+dx^2*(copyV(j,i-1)-2*copyV(j,i)+copyV(j,i+1)))/(dx^2+dy^2);
+    V(i,j) = (dy^2*(copyV(i+1,j)+copyV(i-1,j))+dx^2*(copyV(i,j-1)+copyV(i,j+1)))/(2*(dx^2+dy^2));
     
     V(:,1)=1;
     V(:,nx)=1;
     V(1,:)=0;
     V(ny,:)=0;
     
-    surf(V)
+    surf(V(i,j))
     pause(0.01)
     
     [X,Y] = gradient(V);
